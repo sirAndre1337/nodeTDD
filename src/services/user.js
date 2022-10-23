@@ -5,6 +5,8 @@ module.exports = (app) => {
   }
 
   const save = (user) => {
+    if (!user.name) return { error: 'Nome e um atributo obrigatorio' }
+
     return app.db('users').insert(user, '*')
   }
   return { findAll, save }
