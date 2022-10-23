@@ -7,6 +7,7 @@ module.exports = (app) => {
   const save = (user) => {
     if (!user.name) return { error: 'Nome e um atributo obrigatorio' }
     if (!user.mail) return { error: 'Email e um atributo obrigatorio' }
+    if (!user.password) return { error: 'Senha e um atributo obrigatorio' }
 
     return app.db('users').insert(user, '*')
   }
