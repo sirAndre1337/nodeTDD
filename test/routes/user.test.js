@@ -46,3 +46,12 @@ test('Nao deve inserir usuario sem senha', (done) => {
       done()
     })
 })
+
+test('Nao deve inserir usuario com email ja existente', () => {
+  return request(app).post('/users')
+    .send({ name: 'Walter Mitty', mail, password: '123456' })
+    .then(res => {
+      expect(res.status).toBe(400)
+      expect(res.body.error).toBe('Email ja cadastrado!')
+    })
+})
