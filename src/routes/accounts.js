@@ -14,5 +14,12 @@ module.exports = (app) => {
       })
   }
 
-  return { create, findAll }
+  const findById = (req, res) => {
+    app.services.account.findById({ id: req.params.id })
+      .then(result => {
+        return res.status(200).json(result)
+      })
+  }
+
+  return { create, findAll, findById }
 }
