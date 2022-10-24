@@ -21,5 +21,12 @@ module.exports = (app) => {
       })
   }
 
-  return { create, findAll, findById }
+  const update = (req, res) => {
+    app.services.account.update(req.params.id, req.body)
+      .then(result => {
+        return res.status(200).json(result[0])
+      })
+  }
+
+  return { create, findAll, findById, update }
 }
