@@ -61,3 +61,12 @@ test('Deve remover uma conta', () => {
       expect(res.status).toBe(204)
     })
 })
+
+test('Nao deve inserir conta sem nome', () => {
+  return request(app).post(MAIN_ROUTE)
+    .send({ user_id: user.id })
+    .then(res => {
+      expect(res.status).toBe(400)
+      expect(res.body.error).toBe('Nome e um atributo obrigatorio.')
+    })
+})
