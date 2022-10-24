@@ -4,11 +4,12 @@ const app = require('../../src/app')
 const mail = `${Date.now()}@mail.com`
 
 test('Deve listar todos os usuarios', () => {
-  return request(app).get('/users')
+  return app.db('users')
+    .insert({ name: 'Jesse Pink', mail: `${Date.now()}@mail.com`, password: '1337' })
+    .then(() => request(app).get('/users'))
     .then(res => {
       expect(res.status).toBe(200)
       expect(res.body.length).toBeGreaterThan(0)
-      expect(res.body[0]).toHaveProperty('name', 'Walter Mitty')
     })
 })
 
