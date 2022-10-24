@@ -15,5 +15,8 @@ module.exports = (app) => {
     return app.db('accounts').where({ id }).update(account, '*')
   }
 
-  return { save, findAll, findById, update }
+  const remove = (id) => {
+    return app.db('accounts').where({ id }).delete()
+  }
+  return { save, findAll, findById, update, remove }
 }

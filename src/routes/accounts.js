@@ -28,5 +28,10 @@ module.exports = (app) => {
       })
   }
 
-  return { create, findAll, findById, update }
+  const remove = (req, res) => {
+    app.services.account.remove(req.params.id)
+      .then(() => res.status(204).send());
+  }
+
+  return { create, findAll, findById, update, remove }
 }
