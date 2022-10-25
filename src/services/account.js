@@ -1,5 +1,8 @@
+const validationError = require("../errors/validationError")
+
 module.exports = (app) => {
-  const save = (account) => {
+  const save = async (account) => {
+    if (!account.name) throw new validationError('Nome e um atributo obrigatorio.')
     return app.db('accounts').insert(account, '*')
   }
 

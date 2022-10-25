@@ -1,3 +1,5 @@
+const ValidationError = require('../errors/validationError')
+
 module.exports = (app) => {
 
   const findAll = (filter = {}) => {
@@ -5,13 +7,12 @@ module.exports = (app) => {
   }
 
   const save = async (user) => {
-    if (!user.name) return { error: 'Nome e um atributo obrigatorio' }
-    if (!user.mail) return { error: 'Email e um atributo obrigatorio' }
-    if (!user.password) return { error: 'Senha e um atributo obrigatorio' }
+    if (!user.name) throw new ValidationError('Nome e um atributo obrigatorio');
+    if (!user.mail) throw new ValidationError('Email e um atributo obrigatorio');
+    if (!user.password) throw new ValidationError('Senha e um atributo obrigatorio');
 
     const hasEmail = await findAll({ mail: user.mail });
-
-    if (hasEmail && hasEmail.length > 0) return { error: 'Email ja cadastrado!' }
+    if (hasEmail && hasEmail.length > 0) throw new ValidationError('Email ja cadastrado!');
 
     return app.db('users').insert(user, '*')
   }
